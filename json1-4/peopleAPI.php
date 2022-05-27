@@ -30,5 +30,4 @@ http_response_code(200);    //HTTPレスポンスコード(200正常終了)
 header('Content-Type: application/json; charset=UTF-8');
 header("X-Content-Type-Options: nosniff");
 
-echo json_encode($array, JSON_UNESCAPED_UNICODE);
-exit();
+return json_encode($array, JSON_UNESCAPED_UNICODE);

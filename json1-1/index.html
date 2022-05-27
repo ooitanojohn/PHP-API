@@ -7,16 +7,24 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+      p {
+        padding-bottom: 5px;
+        border-bottom: 1px solid gray;
+      }
+
+    </style>
   </head>
   <body>
-    <pre id="dist"></pre>
+    <h1>JSON1-1</h1>
+    <p id="dist"></p>
   </body>
   <script>
     // 配列
-    let array = [1, 1, 2, 3, 5, 8, 13];
+    let array = ["1", "1", "2", 3, 5, 8, 13];
     // json
     const json_array = JSON.stringify(array);
-    console.log(json_array);
+    // console.log(json_array);
     $("#dist").text(json_array);
   </script>
 </html>
