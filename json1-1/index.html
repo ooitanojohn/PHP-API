@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <pre id="dist"></pre>
+  </body>
+  <script>
+    // 配列
+    let array = [1, 1, 2, 3, 5, 8, 13];
+    // json
+    const json_array = JSON.stringify(array);
+    console.log(json_array);
+    $("#dist").text(json_array);
+  </script>
+</html>
