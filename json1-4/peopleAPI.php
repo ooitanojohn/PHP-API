@@ -8,11 +8,11 @@ $array = [
     'blog' => [array(
       'name' => 'AsadaBlog',
       'published' => '2020-05-01',
-      'url' => 'https://test1.jp/',
+      'url' => 'https://test1-2.jp/',
     ), [
-      'name' => 'AsadaBlog',
-      'published' => '2020-05-01',
-      'url' => 'https://test1.jp/',
+      'name' => 'AsadaBlog2',
+      'published' => '2020-06-01',
+      'url' => 'https://test1-1.jp/',
     ]],
     array(
       'name' => 'kawashima',
@@ -26,8 +26,4 @@ $array = [
   ]
 ];
 
-http_response_code(200);    //HTTPレスポンスコード(200正常終了)
-header('Content-Type: application/json; charset=UTF-8');
-header("X-Content-Type-Options: nosniff");
-
-return json_encode($array, JSON_UNESCAPED_UNICODE);
+echo json_encode($array);
