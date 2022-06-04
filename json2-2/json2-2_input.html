@@ -15,6 +15,7 @@
     <hr> PHPから受信した値をParse（JSON.parse）した値:<br>
     <div id="output3"></div><br>
     <script>
+      'use strict';
       $(function () {
         $('#button').click((event) => {
 
@@ -34,16 +35,14 @@
             }
           })
             .done((msg, status, xhr) => { // 通信成功時の処理
-              console.log(typeof msg);
-              $("#output2").text(json_ary_data);
+              $("#output2").text(json_ary_data); // output2 表示
               // parseした値
               var getjson = JSON.parse(json_ary_data);
-              console.log(getjson);
 
               for (let i = 0; i < getjson.length; i++) {
                 $("#output3").append(
                   "キー:" + i + "\n" + "値:" + getjson[i] + "<br>"
-                );
+                ); // output3 表示
               }
             }).fail({ // 通信失敗時の処理
 

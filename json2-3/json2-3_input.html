@@ -35,16 +35,14 @@
               value: json_ary_data
             }
           })
-            .done((msg, status, xhr) => { // 通信成功時の処理
-              $("#output2").text(msg); // PHPから受信した値を出力
-              console.log(msg);
-              // const getjson = JSON.parse(data); // 受信した値をParse（JSON.parse）した値
-              // console.log(getjson)
-              // for (let i = 0; i < getjson.length; i++) {
-              //   $("#output3").append(
-              //     "キー:" + getjson[i] + "値:" + ary_data[i] + "\n"
-              //   );
-              // }
+            .done((return_data, status, xhr) => { // 通信成功時の処理
+              $("#output2").text(return_data); // PHPから受信した値を出力
+              console.log(return_data);
+              const parse_return_data = JSON.parse(return_data); // 受信した値をParse（JSON.parse）した値
+              console.log(parse_return_data)
+              for (const [key, value] of Object.entries(parse_return_data)) {
+                $("#output3").append(`キー : ${key}  値 : ${value}` + "<br>");
+              }
             }).fail((xhr, status, error) => { // 通信失敗時の処理
             }).always((xhr, status) => { // 通信完了時の処理
               console.log(always)

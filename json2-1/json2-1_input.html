@@ -17,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
+      'use strict';
       $(function () {
         $('#button').click((event) => {
           $.ajax({ // 通信方式,通信先,送信データを記述
@@ -24,7 +25,7 @@
             url: "./json2-1_save.php"
           })
             .done((msg, status, xhr) => { // 通信成功時 第一引数にdata 第二に通信状態 第三にいろいろ
-              $("#output2").text(msg); // 受け取ったjsonデータそのまま表示
+              $("#output2").text(msg); // 受け取ったjsonデータ(string)そのまま表示
               var msg = JSON.parse(msg); // jsonを配列,オブジェクト(連想配列)に
 
               // Object 表示あれこれ 配列として取得している
@@ -38,7 +39,6 @@
               for (const [key, value] of Object.entries(msg)) {
                 $("#output3").append(`キー : ${key}  値 : ${value}` + "<br>");
               }
-
             });
         });
       });
