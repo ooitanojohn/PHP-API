@@ -48,7 +48,7 @@
     <hr> PHPから受信した値を出力:<br>
     <div id="output2"></div>
     <hr> PHPから受信した値をParse（JSON.parse）した値:<br>
-    <div id="output3"></div><br>
+    <div id="output3" style="white-space:pre-wrap; word-wrap:break-word;"></div><br>
     <script>
       'use strict';
       $(function () {
@@ -65,18 +65,16 @@
             ary_data.gender = gender.children[1].value;
           }
 
-          ary_data.hobbies = {};
-          let hobby = document.querySelector('#hobby')
-          console.log(hobby.children)
+          let hobby = document.querySelector('#hobby') // 趣味
+          let ary_hobby = []; // 配列宣言
           for (let i = 0; i < hobby.children.length; i++) {
             if (hobby.children[i].checked === true) {
-              ary_data.hobbies[hobby.children[i].nextSibling.data] = hobby.children[i].value;
-              console.log(ary_data.hobbies);
+              ary_hobby.push(hobby.children[i].value)
+              // ary_data.hobbies[hobby.children[i].nextSibling.data] = hobby.children[i].value;
             }
-          }
-          // ary_data.hobby.game = $('input[name="hobby"]').val();
+          };
+          ary_data.hobbies = ary_hobby;
 
-          console.log(ary_data.hobbies)
           ary_data.mobilephone = $('select[name="mobilephone"]').val();
           ary_data.food = $('select[name="food"]').val();
 
@@ -95,9 +93,11 @@
               console.log(return_data);
               const parse_return_data = JSON.parse(return_data); // 受信した値をParse（JSON.parse）した値
               console.log(parse_return_data)
+              let string = '';
               for (const [key, value] of Object.entries(parse_return_data)) {
-                $("#output3").append(`キー : ${key}  値 : ${value}` + "<br>");
+                string += `キー : ${key}  値 : ${value}` + "\n";
               }
+              $("#output3").text(string)
             }).fail((xhr, status, error) => { // 通信失敗時の処理
             }).always((xhr, status) => { // 通信完了時の処理
               // console.log(always)

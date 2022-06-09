@@ -32,26 +32,21 @@
           $("#json").text(data)
           var getjson = JSON.parse(data)
           // console.log(getjson)
-
           // getjson = getjson[0]
-
           function recursive(object) {
             let string = ''
-            for (const [key, value] of Object.entries(object)) {
+            for (let [key, value] of Object.entries(object)) {
               if (typeof (value) === 'object') {
                 value = recursive(value)
-                // value = value.trim()
               }
-              console.log(key)
-              console.log(value)
-              // string += key + value;
-              string += `キー : ${key}  値 : ${value}` + "\n";
-              console.log(string)
+              string += `key:${key} value:${value}` + "\n"
             }
             return string
           }
           let string = recursive(getjson)
-          $("#decode").text();
+          console.log(string)
+
+          $("#decode").text(string);
 
           // $("#decode").text(
           //   getjson['name'] + "\n" +
