@@ -11,16 +11,16 @@
     </script>
   </head>
   <body>
-    <h1>JSON2-4（Javascript⇒PHP）</h1>
-    <form id="insert_form" action="#">
+    <h1>JSON2-4（Javascript⇒PHP）IW13A229 20 niimisyuto</h1>
+    <div id="insert_form" action="#">
       <p>ID:<input type="text" name="id" value="12345"></p>
       <p>名前：<input type="text" name="name" value="はるのたろう"></p>
-      <p>性別：<input type="radio" name="gender" value="women">女&nbsp;&nbsp;<input type="radio" name="gender" value="men"
-          checked>男<label id="gender_error"></label></p>
+      <p id="gender">性別：<input type="radio" name="gender" value="women">女&nbsp;&nbsp;<input type="radio" name="gender"
+          value="men" checked>男<label id="gender_error"></label></p>
       <p>あなたの趣味は？</p>
-      <p><input type="checkbox" name="hobby" value="1">ゲーム <input type="checkbox" name="hobby" value="2">読書 <input
-          type="checkbox" name="hobby" value="3" checked>旅行 <input type="checkbox" name="hobby" value="4" checked>ネット
-        <input type="checkbox" name="hobby" value="5">ドライブ <label id="hobby_error"></label>
+      <p id="hobby"><input type="checkbox" name="hobby" value="1">ゲーム <input type="checkbox" name="hobby" value="2">読書
+        <input type="checkbox" name="hobby" value="3" checked>旅行 <input type="checkbox" name="hobby" value="4"
+          checked>ネット <input type="checkbox" name="hobby" value="5">ドライブ <label id="hobby_error"></label>
       </p>
       <p>あなたが使っている携帯会社？</p>
       <p>
@@ -43,7 +43,7 @@
         </select><label id="food_error"></label>
       </p>
       <button id="button">ボタン</button>
-    </form> JSで作成した連想配列をJson化（JSON.stringify）:<br>
+    </div> JSで作成した連想配列をJson化（JSON.stringify）:<br>
     <div id="output1"></div>
     <hr> PHPから受信した値を出力:<br>
     <div id="output2"></div>
@@ -56,8 +56,27 @@
           var ary_data = {}; // フォームの内容取得
           ary_data.id = $('input[name="id"]').val();
           ary_data.name = $('input[name="name"]').val();
-          ary_data.gender = $('input[name="gender"]').val();
-          ary_data.hobby = $('input[name="hobby"]').val();
+
+          let gender = document.querySelector('#gender')
+          if (gender.children[0].checked === true) { // 女
+            ary_data.gender = gender.children[0].value;
+          }
+          if (gender.children[1].checked === true) { // 男
+            ary_data.gender = gender.children[1].value;
+          }
+
+          ary_data.hobbies = {};
+          let hobby = document.querySelector('#hobby')
+          console.log(hobby.children)
+          for (let i = 0; i < hobby.children.length; i++) {
+            if (hobby.children[i].checked === true) {
+              ary_data.hobbies[hobby.children[i].nextSibling.data] = hobby.children[i].value;
+              console.log(ary_data.hobbies);
+            }
+          }
+          // ary_data.hobby.game = $('input[name="hobby"]').val();
+
+          console.log(ary_data.hobbies)
           ary_data.mobilephone = $('select[name="mobilephone"]').val();
           ary_data.food = $('select[name="food"]').val();
 
