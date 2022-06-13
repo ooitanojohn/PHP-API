@@ -32,14 +32,15 @@
           $("#json").text(data)
           var getjson = JSON.parse(data)
           // console.log(getjson)
-          // getjson = getjson[0]
           function recursive(object) {
             let string = ''
             for (let [key, value] of Object.entries(object)) {
               if (typeof (value) === 'object') {
                 value = recursive(value)
+                value = value.trim()
               }
-              string += `key:${key} value:${value}` + "\n"
+              // string += `key:${key} value:${value}` + "\n"
+              string += `${value}` + "\n"
             }
             return string
           }
@@ -48,21 +49,22 @@
 
           $("#decode").text(string);
 
-          // $("#decode").text(
-          //   getjson['name'] + "\n" +
-          //   getjson['gender'] + "\n" +
-          //   getjson['blog']['0']['name'] + "\n" +
-          //   getjson['blog']['0']['published'] + "\n" +
-          //   getjson['blog']['0']['url'] + "\n" +
-          //   getjson['blog']['1']['name'] + "\n" +
-          //   getjson['blog']['1']['published'] + "\n" +
-          //   getjson['blog']['1']['url'] + "\n" +
-          //   getjson['0']['name'] + "\n" +
-          //   getjson['0']['gender'] + "\n" +
-          //   getjson['0']['blog']['name'] + "\n" +
-          //   getjson['0']['blog']['published'] + "\n" +
-          //   getjson['0']['blog']['url']
-          // );
+          getjson = getjson[0]
+          $("#decode").append( // 単純に指定して出力
+            getjson['name'] + "\n" +
+            getjson['gender'] + "\n" +
+            getjson['blog']['0']['name'] + "\n" +
+            getjson['blog']['0']['published'] + "\n" +
+            getjson['blog']['0']['url'] + "\n" +
+            getjson['blog']['1']['name'] + "\n" +
+            getjson['blog']['1']['published'] + "\n" +
+            getjson['blog']['1']['url'] + "\n" +
+            getjson['0']['name'] + "\n" +
+            getjson['0']['gender'] + "\n" +
+            getjson['0']['blog']['name'] + "\n" +
+            getjson['0']['blog']['published'] + "\n" +
+            getjson['0']['blog']['url']
+          );
         });
     });
     // $getjsonだと受け取った時点でデコードされてる

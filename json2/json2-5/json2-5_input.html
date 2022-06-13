@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" content="">
+    <title>JSONテスト</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>JSON2-5（Javascript→PHP⇒Javascript）</h1> 取得件数<select name="number">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <button id="button">ボタン</button>
+    <div id="output"></div>
+  </body>
+  <script>
+    'use strict';
+    $(function () {
+      $('#button').click((e) => {
+        e.preventDefault(); // フォームのボタンが押されても同期通信を行わない
+        const number = $('select[name="number"]').val();// フォームの内容取得
+
+        // const json_number = JSON.stringify(number); // json化
+        $.ajax({
+          url: "./json2-5_save.php", // 送信先のPHP
+          type: "GET", // リクエスト方式
+          data: {
+            value: number
+          }
+        })
+          .done((return_data, status, xhr) => { // 通信成功時の処理
+            const parse_return_data = JSON.parse(return_data); // 受信した値をParse（JSON.parse）した値
+            console.log(parse_return_data)
+            // let string = '';
+            // for (const [key, value] of Object.entries(parse_return_data)) {
+            //   string += `キー : ${key}  値 : ${value}` + "\n";
+            // }
+            // // $("#output3").text(string)
+          }).fail((xhr, status, error) => { // 通信失敗時の処理
+          }).always((xhr, status) => { // 通信完了時の処理
+            // console.log(always)
+          });
+      });
+    });
+  </script>
+</html>

@@ -42,7 +42,7 @@ $string = serialize($data);
 $file_n = "json2-3.csv";
 $current = file_get_contents($file_n);
 $current = $string . "\n";
-file_put_contents($file_n, $current); // fopen,fwrite(),fcloseを続けて実行する関数
+file_put_contents($file_n, $current, FILE_APPEND); // fopen,fwrite(),fcloseを続けて実行する関数
 
 // csvから取り出して再エンコードして返す
 $line = file_get_contents('./json2-3.csv'); // 一行読み込みなのでif
