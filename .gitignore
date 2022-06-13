@@ -2,3 +2,4 @@ test
 img
 *.sh
 package.json
+/vendor/
