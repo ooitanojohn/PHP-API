@@ -1,3 +1,5 @@
+test
 img
-.sh
-package,json
+*.sh
+package.json
+/vendor/
