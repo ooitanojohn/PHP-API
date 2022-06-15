@@ -16,9 +16,7 @@
         "platform-check": false
     },
     "require-dev": {
-        "phpunit/phpunit": "9"
-    },
-    "require": {
+        "phpunit/phpunit": "9",
         "fakerphp/faker": "^1.19"
     }
 }

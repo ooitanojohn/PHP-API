@@ -28,24 +28,31 @@
       $('#button').click((e) => {
         e.preventDefault(); // フォームのボタンが押されても同期通信を行わない
         const number = $('select[name="number"]').val();// フォームの内容取得
-
         // const json_number = JSON.stringify(number); // json化
         $.ajax({
-          url: "./json2-5_save.php", // 送信先のPHP
+          url: "./json2-5_output.php", // 送信先のPHP
           type: "GET", // リクエスト方式
           data: {
-            value: number
+            number: number
           }
         })
           .done((return_data, status, xhr) => { // 通信成功時の処理
             const parse_return_data = JSON.parse(return_data); // 受信した値をParse（JSON.parse）した値
-            console.log(parse_return_data)
-            // let string = '';
-            // for (const [key, value] of Object.entries(parse_return_data)) {
-            //   string += `キー : ${key}  値 : ${value}` + "\n";
-            // }
-            // // $("#output3").text(string)
+            // console.log(parse_return_data)
+            let string = ''
+            let i = 0
+            while (parse_return_data.length > i) {
+              for (const [key, value] of Object.entries(parse_return_data[i])) {
+                string += ` ${key} : ${value} `
+              }
+              string += "\n"
+              i++
+            }
+            // console.log(string)
+            document.getElementById('output').innerText = string
           }).fail((xhr, status, error) => { // 通信失敗時の処理
+            // console.log(xhr.responseText);
+            document.getElementById('output').innerText = xhr.responseText
           }).always((xhr, status) => { // 通信完了時の処理
             // console.log(always)
           });
