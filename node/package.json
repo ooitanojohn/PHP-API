@@ -1,0 +1,11 @@
+{
+  "name": "nodemon",
+  "version": "1.0.0",
+  "description": "nodemonの課題",
+  "main": "index.html",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

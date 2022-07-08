@@ -35,6 +35,7 @@ const app = http.createServer();
 
 const reqRes = (req, res) => {
   const url = req.url;
+  console.log(url);
   if ('/' == url || '/page1' == url) {
     res.writeHead(200, { "Content-type": "text/html" });
     fs.readFile(routeResMap[url], 'utf-8',

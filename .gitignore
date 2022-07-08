@@ -1,7 +1,8 @@
 test
 img
-package.json
+package-lock.json
 /vendor/
 .jpg
 .png
 js/
+node_modules
