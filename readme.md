@@ -34,6 +34,10 @@ let fragment = document.createDocumentFragment();
       }
       nav.appendChild(fragment); // 一回で済む
 ```
+## select option
+セレクトボックスのoption選択値valueを取得したい場合はe.target.valueで良いが、その選択された子要素を取得したい場合
+selectIndexでoption要素の添字を取得できるので
+select.childNodes[(int)select.selectIndex]で取得できる
 
 ## 子孫要素のイベント発火は親要素に伝搬する為、親要素のe引数にイベント情報が伝わる
 - nav.ul.li → li click
