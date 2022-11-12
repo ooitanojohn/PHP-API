@@ -1,5 +1,6 @@
 const config = require('./config.js')
 const express = require('express')
+const mysql = require('mysql2')
 const app = express();
 
 const func = require('./func.js') // isset関数
@@ -10,6 +11,22 @@ app.use(express.static(__dirname + '/views', { index: false }))
 // postデータの受け取り
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// DB接続
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  port: 3306,
+  database: 'testdb'
+})
+connection.connect((err) => {
+  if (err) {
+    console.log('err connect' + err.stack)
+    return
+  }
+  console.log('success')
+})
 
 // 4-1
 app.get('/app4-1', (req, res) => {
@@ -85,10 +102,108 @@ app.post('/', (req, res) => { // post
     text_post: `${req.body.text_post}`,
   })
 })
+
+// add 4-5
+app.get('/app4-5', (req, res) => {
+  res.render('page3.ejs', {
+  })
+})
+
+// CRUD
+app.get('/users', (req, res) => {
+  console.log('GET:' + req.query.name)
+  const sendData = {
+    name: req.query.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+app.post('/users', (req, res) => {
+  console.log('POST:' + req.body.name)
+  const sendData = {
+    name: req.body.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+app.put('/users', (req, res) => {
+  console.log('PUT:' + req.body.name)
+  const sendData = {
+    name: req.body.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+app.delete('/users', (req, res) => {
+  console.log('DELETE:' + req.body.name)
+  const sendData = {
+    name: req.body.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+
+// add 5-1
+app.get('/app5-1', (req, res) => {
+  res.render('app5-1.ejs', {
+  })
+})
+
+// mysql
+// select
+app.get('/mysql', (req, res) => {
+  console.log('入力ID' + req.query.id)
+  connection.query('SELECT * FROM t01_users', (err, results) => {
+    if (err) {
+      console.log('err connect:' + err.stack)
+      return
+    }
+    console.log(results);
+    const sendData = {
+      name: results
+    }
+    res.send(JSON.stringify(sendData))
+  })
+
+})
+// 新規登録
+app.post('/mysql', (req, res) => {
+  console.log('POST:' + req.body.id + req.body.username + req.body.email + req.body.password)
+  connection.query("INSERT INTO t01_users(id,username,email,password) VALUES ('1','name','email','pass');", (err, results) => {
+    if (err) {
+      console.log('err connect:' + err.stack)
+      return
+    }
+    const sendData = {
+      msg: '登録しました',
+      id: req.body.id,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    }
+    res.send(JSON.stringify(sendData))
+  })
+})
+// 更新
+app.put('/mysql', (req, res) => {
+  console.log('PUT:' + req.body.name)
+  const sendData = {
+    name: req.body.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+// 削除
+app.delete('/mysql', (req, res) => {
+  console.log('DELETE:' + req.body.name)
+  const sendData = {
+    name: req.body.name
+  }
+  res.send(JSON.stringify(sendData))
+})
+
 app.use((req, res) => { //
   res.status(404);
   res.render('notfound.ejs')
 })
+
+
+
 app.listen(config.port)
 
 // get post 取得も req,res前に書く
