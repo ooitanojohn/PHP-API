@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+img{
+  width:100px;
+}
+
+h1{
+  color:green;
+}
+ul{
+  list-style:none;
+}
+#chat-text{
+  display:flex;
+  gap:0px 10px;
+}

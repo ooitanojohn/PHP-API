@@ -1,0 +1,1 @@
+docker container exec -it cc61167772ab bash

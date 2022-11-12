@@ -1,5 +1,11 @@
-test
-img
-*.sh
-package.json
+test.*
+package-lock*
 /vendor/
+composer.lock
+node_modules
+jquery*
+img/
+image/
+*.jpg
+*.png
+node/

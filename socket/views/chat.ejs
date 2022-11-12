@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs'); %>
+<h1>WebSocket Chatroom<%= chatid %></h1>
+<form id="chatForm">
+  <input id="chat-input1" type="text" />
+  <input id="chat-input2" type="text" />
+  <input type="submit" class="button" value="Send" />
+</form>
+<ul>
+  <li>過去ログ</li>
+  <% for (let i= 0; i < values.length; i++) { %>
+  <ul id="chat-log">
+    <li>ログNo:<%= i %></li>
+    <li>input1:<%= values[i].input1 %></li>
+    <li>input2:<%= values[i].input2%></li>
+  </ul>
+  <% } %>
+  <li>現在ログ</li>
+  <ul id="output"></ul>
+</ul>
+<script>
+  // chatid変数に保存
+  let chatid = "<%= chatid %>";
+  console.log(chatid);
+  // 過去のchatを表示
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../js/javascript6-2-3.js"></script>
+<%- include('partials/footer.ejs'); %>

@@ -1,0 +1,1 @@
+curl -X POST -d "username=MODE&password=NAGOYA" http://localhost:9000/
