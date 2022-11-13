@@ -15,11 +15,13 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 
-const indexRouter = require("./router/index");
-const cookieRouter = require("./router/cookie");
+const indexRouter = require("./routes/top");
+const cookieRouter = require("./routes/cookie");
+const loginRouter = require("./routes/login");
 
 app.use("/", indexRouter);
 app.use("/chat1", cookieRouter);
+app.use("/login", loginRouter);
 
 
 app.get("/chat2", (req, res) => {
