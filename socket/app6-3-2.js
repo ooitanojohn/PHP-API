@@ -17,14 +17,14 @@ app.use(express.urlencoded({ extended: true }));
  */
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
-  host : 'localhost',
-  user : 'root',
-  password : 'password',
-  port : 3306,
-  database : 'chatdb'
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  port: 3306,
+  database: 'auctiondb'
 });
 connection.connect((err) => {
-  if(err) {
+  if (err) {
     console.log('MySQL: err connect' + err.stack);
     return;
   }
@@ -42,26 +42,26 @@ app.use(passport.initialize());
 const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
   {
-    usernameField:'email',
-    passwordField:'password'
+    usernameField: 'email',
+    passwordField: 'password'
   },
-  (email,password,done) => {
+  (email, password, done) => {
     const values = [
       email,
       password
     ];
     connection.query(
-      'SELECT * FROM t01_users WHERE email=? AND password=?' , values,
-      (error ,results) => {
-        if(error){
+      'SELECT * FROM t01_users WHERE email=? AND password=?', values,
+      (error, results) => {
+        if (error) {
           console.log('error connecting:' + error.stack);
           return;
         }
         const count = results.length;
-        if(count === 0) {
-          return done(null,false); // NG
-        }else{
-          return done(null,results[0]); // ok
+        if (count === 0) {
+          return done(null, false); // NG
+        } else {
+          return done(null, results[0]); // ok
         }
       }
     );
@@ -69,22 +69,22 @@ passport.use(new LocalStrategy(
 ));
 
 /**
- * chat一覧表示
+ * auction一覧表示
  */
 app.get('/', (req, res) => {
   connection.query(
     'SELECT * FROM t01_users',
-    (error,results) => {
-      if(error){
+    (error, results) => {
+      if (error) {
         console.log('error connecting:' + error.stack);
-        res.status(400).send({message : 'Error!!' });
+        res.status(400).send({ message: 'Error!!' });
         return;
       }
-      res.render('index.ejs',{values:results});
+      res.render('index.ejs', { values: results });
     }
   );
   // 接続切れた
-  socket.on('disconnect',() => {
+  socket.on('disconnect', () => {
     console.log('user disconnected');
   })
 
@@ -93,7 +93,7 @@ app.get('/', (req, res) => {
 /**
  * ログイン画面表示
  */
-app.get('/login',(req,res) => {
+app.get('/login', (req, res) => {
   res.render('login.ejs');
 });
 
@@ -101,23 +101,23 @@ app.get('/login',(req,res) => {
  * ログイン処理
  */
 app.post('/login',
-  passport.authenticate('local',{
-    session:false,
-    // successRedairect: '/chat',
+  passport.authenticate('local', {
+    session: false,
+    // successRedairect: '/auction',
     failureRediredt: '/login',
   }),
-  (req,res) => {
+  (req, res) => {
     console.log(req)
-    res.render('chat.ejs',{
-      id:req.user.id,
-      username:req.user.username
+    res.render('auction.ejs', {
+      id: req.user.id,
+      username: req.user.username
     });
   }
 );
 /**
  * エラー
  */
-app.get('/error',(req,res) => {
+app.get('/error', (req, res) => {
   res.render('error.ejs');
 });
 
@@ -130,45 +130,45 @@ http_socket.listen(9000);
 /**
  * チャット
  */
-app.get('/chat', (req,res) {
-  res.render('chat.ejs',{
-    id:req.query.id,
-    username:req.query.username
+app.get('/auction', (req, res) {
+  res.render('auction.ejs', {
+    id: req.query.id,
+    username: req.query.username
   });
 });
 
 /**
  * チャットルーム1
  */
-app.get('/chat1',(req,res){
-  res.render('chat1.ejs',{
-    id:req.query.id,
-    username:req.query.username
+app.get('/auction1', (req, res){
+  res.render('auction1.ejs', {
+    id: req.query.id,
+    username: req.query.username
   });
 });
 
 /**
  * チャットルーム2
  */
-app.get('/chat2',(req,res){
-  res.render('chat2.ejs',{
-    id:req.query.id,
-    username:req.query.username
+app.get('/auction2', (req, res){
+  res.render('auction2.ejs', {
+    id: req.query.id,
+    username: req.query.username
   });
 });
 
-io_socket.on('connection',(socket) => {
+io_socket.on('connection', (socket) => {
   console.log('connected');
-  socket.on('c2s',(msg) => {
+  socket.on('c2s', (msg) => {
     console.log('c2s:' + msg);
-    io_socket.emit('sc2',msg);
+    io_socket.emit('sc2', msg);
   });
-  socket.on('c2s-chat1',(msg) => {
-    console.log('c2s-chat1:' + msg);
-    io_socket.emit('sc2-chat1',msg);
+  socket.on('c2s-auction1', (msg) => {
+    console.log('c2s-auction1:' + msg);
+    io_socket.emit('sc2-auction1', msg);
   });
-  socket.on('c2s-chat2',(msg) => {
-    console.log('c2s-chat2:' + msg);
-    io_socket.emit('sc2-chat2',msg);
+  socket.on('c2s-auction2', (msg) => {
+    console.log('c2s-auction2:' + msg);
+    io_socket.emit('sc2-auction2', msg);
   });
 });

@@ -1,7 +1,7 @@
 const socketIo = io();
-const form = document.getElementById("chatForm");
-const input = document.getElementById("chat-input");
-const input2 = document.getElementById("chat-input2");
+const form = document.getElementById("auctionForm");
+const input = document.getElementById("auction-input");
+const input2 = document.getElementById("auction-input2");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();

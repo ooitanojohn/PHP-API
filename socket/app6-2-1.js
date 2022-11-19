@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
   res.render("index6-2-1.ejs");
 });
 
-// parameterでchatroom振り分け
-app.get("/chat/:chatid", (req, res) => {
-  res.render("chat.ejs", { chatid: req.params.chatid });
+// parameterでauctionroom振り分け
+app.get("/auction/:auctionId", (req, res) => {
+  res.render("auction.ejs", { auctionId: req.params.auctionId });
 });
 
 http_socket.listen(9000);
@@ -29,12 +29,12 @@ io_socket.on("connection", (socket) => {
   // parameta振り分け
   socket.on("c2s", (msg) => {
     console.log("c2s:" + msg);
-    io_socket.to(msg.chatid).emit("s2c", msg);
+    io_socket.to(msg.auctionId).emit("s2c", msg);
   });
 
   socket.on("c2s-join", (msg) => {
     console.log("cs2-join:" + msg);
-    socket.join(msg.chatid);
+    socket.join(msg.auctionId);
   });
   // 接続切れた
   socket.on("disconnect", () => {

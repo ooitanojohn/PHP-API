@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "password",
   port: 3306,
-  database: "chatdb",
+  database: "auctiondb",
 });
 connection.connect((err) => {
   if (err) {
@@ -34,12 +34,12 @@ app.get("/", (req, res) => {
   res.render("index6-2-3.ejs");
 });
 
-// parameterでchatroom振り分け
-app.get("/chat/:chatid", (req, res) => {
+// parameterでauctionroom振り分け
+app.get("/auction/:auctionId", (req, res) => {
   // 過去のチャットを取得
   connection.query(
-    "SELECT input1,input2 from t01_chatmessage where chatid = ?",
-    req.params.chatid,
+    "SELECT input1,input2 from t01_auctionmessage where auctionId = ?",
+    req.params.auctionId,
     (err, results) => {
       if (err) {
         console.log("err connecting:" + err.stack);
@@ -47,9 +47,9 @@ app.get("/chat/:chatid", (req, res) => {
         return;
       }
       //console.log('root/app6-2-3.js' + results);
-      res.render("chat.ejs", {
+      res.render("auction.ejs", {
         values: results,
-        chatid: req.params.chatid,
+        auctionId: req.params.auctionId,
       });
     }
   );
@@ -64,15 +64,15 @@ io_socket.on("connection", (socket) => {
   // クライアントからサーバ
   socket.on("c2s", (msg) => {
     console.log(
-      "c2s:クライアントからサーバへ" + msg.input1 + msg.input2 + msg.chatid
+      "c2s:クライアントからサーバへ" + msg.input1 + msg.input2 + msg.auctionId
     );
     for (const p in msg) {
       console.log(`${p}:${msg[p]}`);
     }
     // SQLにmsgを保存
-    let values = [msg.chatid, msg.input1, msg.input2];
+    let values = [msg.auctionId, msg.input1, msg.input2];
     connection.query(
-      "INSERT INTO t01_chatmessage VALUES (?, ?, ?);",
+      "INSERT INTO t01_auctionmessage VALUES (?, ?, ?);",
       values,
       (err, results, fields) => {
         if (err) {
@@ -83,12 +83,12 @@ io_socket.on("connection", (socket) => {
       }
     );
     // サーバからクライアントへ送信
-    io_socket.to(msg.chatid).emit("s2c", msg);
+    io_socket.to(msg.auctionId).emit("s2c", msg);
   });
-  // chatroomに参加する
+  // auctionroomに参加する
   socket.on("c2s-join", (msg) => {
-    console.log("cs2-join:" + msg.chatid);
-    socket.join(msg.chatid);
+    console.log("cs2-join:" + msg.auctionId);
+    socket.join(msg.auctionId);
   });
   // 接続切れた
   socket.on("disconnect", () => {

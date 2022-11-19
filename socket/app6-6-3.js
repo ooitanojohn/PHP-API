@@ -26,12 +26,12 @@ http_socket.listen(9000);
 
 io_socket.on("connection", (socket) => {
   console.log("connected");
-  // chatroom1
+  // auctionroom1
   socket.on("c2s", (msg) => {
     console.log("c2s:" + msg);
     io_socket.emit("s2c", msg);
   });
-  // chatroom2
+  // auctionroom2
   socket.on("room2", (msg) => {
     console.log("room2:" + msg);
     io_socket.emit("room2Res", msg);

@@ -1,6 +1,6 @@
 const socketIo = io();
-const form = document.getElementById("chatForm");
-const input = document.getElementById("chat-input");
+const form = document.getElementById("auctionForm");
+const input = document.getElementById("auction-input");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();

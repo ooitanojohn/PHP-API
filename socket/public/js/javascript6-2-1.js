@@ -1,14 +1,14 @@
 const socketIo = io();
-const form = document.getElementById("chatForm");
-const input = document.getElementById("chat-input");
+const form = document.getElementById("auctionForm");
+const input = document.getElementById("auction-input");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
   let sendData = {
-    chatid: chatid,
-    input1: document.getElementById("chat-input1").value,
-    input2: document.getElementById("chat-input2").value,
+    auctionId: auctionId,
+    input1: document.getElementById("auction-input1").value,
+    input2: document.getElementById("auction-input2").value,
   };
   console.log(sendData);
   socketIo.emit("c2s", sendData);
@@ -23,7 +23,7 @@ socketIo.on("s2c", function (msg) {
 });
 
 const sendData = {
-  chatid: chatid,
+  auctionId: auctionId,
 };
 
 socketIo.emit("c2s-join", sendData);

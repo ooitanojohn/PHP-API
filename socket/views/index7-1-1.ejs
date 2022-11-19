@@ -1,12 +1,11 @@
-<%- include('partials/header.ejs'); %>
-<h1>WebSocket Chat (Namespace)</h1>
-<a href="/chat1">chat1</a> <a href="/chat2">chat2</a> <a href="/chat3">chat3</a>
+<%- include('partials/header.ejs'); %> <h1>WebSocket auction (Namespace)</h1> <% for (let i= 1; i <= 3; i++) { %> <a
+  href=<%= `/auction/${i}` %>>auction<%= i %></a> <% } %>
 <hr />
-<form id="chatForm">
-  <input id="chat-input1" type="text" /> <input id="chat-input2" type="text" />
+<form id="auctionForm">
+  <input id="auction-input1" type="text" />
+  <input id="auction-input2" type="text" />
   <input type="submit" class="button" value="Send" />
 </form>
 <ul id="output"></ul>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/javascript7-1-1.js"></script>
-<%- include('partials/footer.ejs'); %>
+<script src="/js/javascript.js"></script> <%- include('partials/footer.ejs'); %>

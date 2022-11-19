@@ -1,17 +1,18 @@
-const socketio = io(); // ボタンが押されたら動く
-const form = document.getElementById("chatForm");
+const socketIo = io();
+// ボタンが押されたら動く
+const form = document.getElementById("auctionForm");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const sendData = {
-    input1: document.getElementById("chat-input1").value,
-    input2: document.getElementById("chat-input2").value,
+    input1: document.getElementById("auction-input1").value,
+    input2: document.getElementById("auction-input2").value,
   };
-  socketio.emit("c2s", sendData);
+  socketIo.emit("toServer", sendData);
 });
+
 //サーバ(Node.js) クライアント(ブラウザ)へSocket受信
-socketio.on("s2c", function (msg) {
-  console.log("tws2c:" + msg);
+socketIo.on("toJavascript", function (msg) {
   const ul = document.getElementById("output");
   const li = document.createElement("li");
   li.innerHTML = msg.input1 + " " + msg.input2;

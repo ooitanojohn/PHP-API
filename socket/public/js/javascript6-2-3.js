@@ -1,13 +1,13 @@
 const socketIo = io();
-const form = document.getElementById("chatForm");
+const form = document.getElementById("auctionForm");
 
 // クライアント側からサーバに送信
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   let sendData = {
-    chatid: chatid,
-    input1: document.getElementById("chat-input1").value,
-    input2: document.getElementById("chat-input2").value,
+    auctionId: auctionId,
+    input1: document.getElementById("auction-input1").value,
+    input2: document.getElementById("auction-input2").value,
   };
   console.log(sendData);
   socketIo.emit("c2s", sendData);
@@ -22,10 +22,10 @@ socketIo.on("s2c", function (msg) {
   ul.appendChild(li);
 });
 
-// 入室時に過去のchat一覧を出す
+// 入室時に過去のauction一覧を出す
 
 // 入室時にクライアントから部屋番号をサーバにデータ送信
 const sendData = {
-  chatid: chatid,
+  auctionId: auctionId,
 };
 socketIo.emit("c2s-join", sendData);

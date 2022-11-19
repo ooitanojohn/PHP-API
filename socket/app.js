@@ -20,15 +20,15 @@ const cookieRouter = require("./routes/cookie");
 const loginRouter = require("./routes/login");
 
 app.use("/", indexRouter);
-app.use("/chat1", cookieRouter);
+app.use("/auction1", cookieRouter);
 app.use("/login", loginRouter);
 
 
-app.get("/chat2", (req, res) => {
-  res.render("chat2.ejs");
+app.get("/auction2", (req, res) => {
+  res.render("auction2.ejs");
 });
-app.get("/chat3", (req, res) => {
-  res.render("chat3.ejs");
+app.get("/auction3", (req, res) => {
+  res.render("auction3.ejs");
 });
 
 http_socket.listen(9000);
@@ -41,11 +41,11 @@ io_socket.on("connection", function (socket) {
   });
   //L-4
   socket.on("c2s-join", function (msg) {
-    console.log("c2s-join:" + msg.chatid);
-    socket.join(msg.chatid);
+    console.log("c2s-join:" + msg.auctionId);
+    socket.join(msg.auctionId);
   });
-  socket.on("c2s-chat", function (msg) {
-    console.log("c2s-chat: " + msg); // サーバ(Node.js) →クライアント(ブラウザ)へSocket送信
-    io_socket.to(msg.chatid).emit("s2c-chat", msg);
+  socket.on("c2s-auction", function (msg) {
+    console.log("c2s-auction: " + msg); // サーバ(Node.js) →クライアント(ブラウザ)へSocket送信
+    io_socket.to(msg.auctionId).emit("s2c-auction", msg);
   });
 });

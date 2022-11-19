@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "password",
   port: 3306,
-  database: "chatdb",
+  database: "auctiondb",
 });
 connection.connect((err) => {
   if (err) {
@@ -67,7 +67,7 @@ passport.use(
 );
 
 /**
- * chat一覧表示
+ * auction一覧表示
  */
 app.get("/", (req, res) => {
   connection.query("SELECT * FROM t01_users", (error, results) => {
@@ -105,7 +105,7 @@ app.post(
   "/login",
   passport.authenticate("local", {
     session: false,
-    // successRedairect: '/chat',
+    // successRedairect: '/auction',
     failureRedirect: "/error",
   }),
   (req, res) => {

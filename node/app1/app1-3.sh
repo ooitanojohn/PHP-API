@@ -1,1 +1,0 @@
-curl -X GET 'http://localhost:9000/?username=HAL&password=OSAKA'
