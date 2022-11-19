@@ -1,0 +1,11 @@
+<%- include('partials/header.ejs'); %> <h1>WebSocket auction (Namespace)</h1> <% for (let i= 1; i <= 3; i++) { %> <a
+  href=<%= `/auction/${i}` %>>auction<%= i %></a> <% } %>
+<hr />
+<form id="auctionForm">
+  <input id="auction-input1" type="text" />
+  <input id="auction-input2" type="text" />
+  <input type="submit" class="button" value="Send" />
+</form>
+<ul id="output"></ul>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/publicIndex.js"></script> <%- include('partials/footer.ejs'); %>
