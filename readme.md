@@ -16,6 +16,8 @@ input_token.addEventListener('change', () => { // トークンチェック
   // console.log(input_token.value)
 });
 ```
+## create TextNodeだと!!
+https://uhyohyo.net/javascript/2_5.html
 
 ## [複数回dom追加操作しているなら](https://qiita.com/39_isao/items/2fa8faed283d455f4181)
 - createDocumentFragmentでdomツリー作って追加する
