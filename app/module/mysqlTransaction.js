@@ -1,4 +1,6 @@
-// const { poolQuery } = require('./mysqlPool');
+
+const { poolQuery } = require('./mysqlPool');
+
 const MySQLTransaction = require("../../config/module/mysqlTransaction");
 
 //引数にクエリとバインド用valuesを取れるようにして、結果を受け取る
@@ -47,8 +49,8 @@ module.exports = {
 //   try {
 //     const data = await executeQuery('SELECT * FROM `user_tbl` WHERE `user_id` = ? AND `card_key` = ?', ['1', 556])
 //     console.log(data);
-//     next(err);
-//   } catch (err) {
-//   }
 //   res.end("OK");
+//   } catch (err) {
+//     next(err);
+//   }
 // });

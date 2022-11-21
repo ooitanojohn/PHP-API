@@ -15,7 +15,7 @@ const mysqlPoolConf = ({
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
   waitForConnections: true,
-  connectionLimit: 20, // デフォルトは10
+  connectionLimit: 10, // デフォルトは10
   queueLimit: 0
 });
 
