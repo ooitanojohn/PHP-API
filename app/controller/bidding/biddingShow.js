@@ -1,10 +1,7 @@
 const biddingShow = (req, res) => {
+  const { reqInfoReturn } = require("../../conf/auctionResInfo");
+  let resInfo = reqInfoReturn(req);
   // reqからejsに送付する情報をresInfoに格納する
-  const resInfo = {
-    body: req.body, // 送信データ client？ serverじゃない?再入力時は居るな
-    params: req.params, //今回はproductId。 myPage,userIDとか商品詳細ページの商品IDとかbiddingページのproductIDとか
-    query: req.query, // ?queryParam ?search="subaru"&order="ASC"
-  };
   // DBから入札履歴一覧取ってきて、resInfoに渡す
   // server
   // console.log(req.cookies);

@@ -7,6 +7,7 @@ var debug = require("debug")("http");
 const http_socket = require("http").Server(app);
 const io_socket = require("socket.io")(http_socket);
 debug('booting App');
+
 /** ソケット */
 io_socket.on("connection", (socket) => {
   /**
