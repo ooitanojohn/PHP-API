@@ -1,4 +1,6 @@
+
 const { poolQuery } = require('./mysqlPool');
+
 const MySQLTransaction = require("../../config/module/mysqlTransaction");
 
 //引数にクエリとバインド用valuesを取れるようにして、結果を受け取る

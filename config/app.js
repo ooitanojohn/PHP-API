@@ -56,15 +56,11 @@ app.use("/bidding", biddingRouter);
 /**
  * MySQL
  */
-// const { promisify } = require("util");
-// const mysql = require("mysql2");
+const mysql = require("mysql2");
 /** 接続設定 */
-// const { mysqlConf, mysqlPoolConf } = require("./conf/mysql");
+const { mysqlConf, mysqlPoolConf } = require("./conf/mysql");
 /** 共通関数 エラーハンドラなど */
-// const { mysqlTransaction, mysqlConnectErr, mysqlPoolTransaction } = require("./module/handler/mysql");
+const { mysqlTransaction, mysqlConnectErr, mysqlPoolTransaction } = require("./module/handler/mysql");
 /** 接続 */
-// const connection = mysql.createConnection(mysqlConf);
-/** コネクションプール */
-// const pool = mysql.createPool(mysqlPoolConf);
 
 module.exports = app;
