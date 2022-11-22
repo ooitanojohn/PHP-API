@@ -1,9 +1,0 @@
-<IfModule mod_rewrite.c>
-# php拡張子なしでもアクセス可にする
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ $1.php [L]
-
-</IfModule>
-

@@ -1,13 +1,12 @@
 <%- include('partials/header.ejs'); %>
+<!-- UIkit CSS -->
 <!-- 入札値 -->
 <h1>入札No<%= ejsRender.params.productId %> </h1>
 <!-- 商品詳細 /top/product/:productId -->
 <a href="/top/product/1">商品詳細はこちら</a>
 <!-- 過去ログ 入札番号 価格 userId 入札時間 をふんわりと無限ループで流す -->
-<div id="biddingLog"> 
-  <% ejsRender.sql.forEach((value, key) => { %> <p>入札No:<%- key + 1  %> 入札者番号:<%= value.user_id %>
-    入札価格:<%= value.bidding_money %>万円 入札時間:<%- value.bidding_time %></p> <% }) %>
-</div>
+<div id="biddingLog"> <% ejsRender.sql.forEach((value, key) => { %> <p>入札No:<%- key + 1  %> 入札者番号:<%= value.user_id %>
+    入札価格:<%= value.bidding_money %>万円 入札時間:<%- value.bidding_time %></p> <% }) %> </div>
 <!-- 現在の最高価格とuserIdと入札時間(何分前に？購入を煽る表示) -->
 <p>現在最高価格<span id="maxBiddingMoney"><%=ejsRender.max.bidding_money%></span>万円 <span
     id="maxUserId"><%= ejsRender.max.user_id %></span>番様 <span
@@ -24,7 +23,7 @@
 </form>
 <script>
   const info = JSON.parse('<%- JSON.stringify(ejsRender) %>');
-  // console.log(info);
+  console.log(info);
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/renderBidding.js"></script> <%- include('partials/footer.ejs'); %>

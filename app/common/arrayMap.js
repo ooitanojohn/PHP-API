@@ -12,7 +12,7 @@ const array2ndFindKeyMapVal = (array, objKey) => {
     result[result.length] = array[i][objKey];
   }
   return result;
-}
+};
 
 /**
  *  2次元配列内にある指定したobjKeyのobjValがmatchと一致したobjを返す関数
@@ -21,13 +21,13 @@ const array2ndFindKeyMapVal = (array, objKey) => {
  * @param {*} match 配列objから探したい値
  * @returns {object} result 検索した要素のobject
  */
-const array2ndFindValMapArr = (array, objKey,match) => {
+const array2ndFindValMapArr = (array, objKey, match) => {
   for (let i = 0; i < array.length; i++) {
     if (array[i][objKey] === match) return array[i];
   }
-}
+};
 
 module.exports = {
   array2ndFindKeyMapVal,
-  array2ndFindValMapArr
+  array2ndFindValMapArr,
 };

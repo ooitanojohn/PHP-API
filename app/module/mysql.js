@@ -1,5 +1,5 @@
 /**
- * MySQL
+ * MySQL poolを使わない参照処理
  */
 /** promise(reject,resolveを返す) */
 
@@ -11,7 +11,7 @@ const connection = mysql.createConnection(mysqlConf);
 const conPromise = {
   connect: promisify(connection.connect).bind(connection),
   execute: promisify(connection.execute).bind(connection),
-  end: promisify(connection.end).bind(connection)
+  end: promisify(connection.end).bind(connection),
 };
 module.exports = { conPromise };
 

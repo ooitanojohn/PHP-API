@@ -5,11 +5,10 @@ const reqInfoReturn = (req) => {
     params: req.params, //今回はproductId。 myPage,userIDとか商品詳細ページの商品IDとかbiddingページのproductIDとか
     query: req.query, // ?queryParam ?search="subaru"&order="ASC"
     session: req.session,
-    cookie:req.cookie,
+    cookie: req.cookie,
   };
   return resInfo;
-}
-
+};
 
 module.exports = {
   reqInfoReturn,

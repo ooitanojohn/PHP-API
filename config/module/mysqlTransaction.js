@@ -1,7 +1,7 @@
 /**
  * transactionで SQL処理
  */
-const { getConnection } = require("../../app/module/mysqlPool");
+const { getConnection } = require("./mysqlPool");
 
 const MySQLTransaction = class {
   constructor(connection) {
@@ -21,7 +21,7 @@ const MySQLTransaction = class {
   //クエリの実行 options = {}はfields
   async query(query, values, options = {}) {
     options = {
-      fields: options.fields || false
+      fields: options.fields || false,
     };
     //プロミスでラップ
     return new Promise((resolve, reject) => {

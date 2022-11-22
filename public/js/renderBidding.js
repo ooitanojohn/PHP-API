@@ -24,9 +24,17 @@ socketIo.on("toRenderBiddingSend", (biddingData) => {
   /** 上記の入札履歴リスト更新 */
   const div = document.getElementById("biddingLog");
   let p = document.createElement("p");
-  let text = document.createTextNode("入札No:" + "入札者番号:" + biddingData.userId + "入札価格:" + biddingData.biddingTime + "入札時間:" + biddingData.biddingMoney);
+  let text = document.createTextNode(
+    "入札No:" +
+      "入札者番号:" +
+      biddingData.userId +
+      "入札価格:" +
+      biddingData.biddingTime +
+      "入札時間:" +
+      biddingData.biddingMoney
+  );
   p.appendChild(text);
-  div.appendChild(p)
+  div.appendChild(p);
   // const updateBiddingLog = () => {
   //   return new Promise((resolve) => {
   //     const p = document.createElement("p");
@@ -42,7 +50,7 @@ socketIo.on("toRenderBiddingSend", (biddingData) => {
   //     div.removeChild(div.childNodes[0]);
   //   }
   // }
-  console.log(div.childNodes)
+  console.log(div.childNodes);
 
   /** 最高入札額の更新 */
   const maxBiddingMoney = document.querySelector("#maxBiddingMoney");
@@ -50,7 +58,8 @@ socketIo.on("toRenderBiddingSend", (biddingData) => {
   const maxBiddingTime = document.querySelector("#maxBiddingTime");
   const biddingMoney = document.querySelector("#biddingMoney");
   maxBiddingMoney.textContent = biddingData.biddingMoney;
-  maxUserId.textContent = biddingData.userId; maxBiddingTime.textContent = biddingData.biddingTime;
+  maxUserId.textContent = biddingData.userId;
+  maxBiddingTime.textContent = biddingData.biddingTime;
   biddingMoney.min = Number(biddingData.biddingMoney) + 100;
   biddingMoney.placeholder = Number(biddingData.biddingMoney) + 100;
 });

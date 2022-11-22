@@ -1,43 +1,39 @@
 /**
- * コネクションプーリングでMySQL接続
+ * MySQL poolを使用 参照と更新処理
  */
-const { promisify } = require("util");
-const mysql = require("mysql2");
-/** 接続設定 */
-const { mysqlPoolConf } = require("../../config/conf/mysql");
+const { poolQuery } = require("../../config/module/mysqlPool");
 
-/** Poolインスタンス */
-const pool = mysql.createPool(mysqlPoolConf);
-// pool.getConnectionプロミス化
-const getConnection = promisify(pool.getConnection).bind(pool);
-//pool.queryをプロミス化、
-const poolQuery = promisify(pool.query).bind(pool)
+const MySQLTransaction = require("../../config/module/mysqlTransaction");
 
-//引数にクエリとバインド用valuesを取れるようにして、結果を受け取る
+// 引数にクエリとバインド用valuesを取れるようにして、結果を受け取る
 const executeQuery = async (query, values) => {
   const results = await poolQuery(query, values);
   return results;
-}
-module.exports = {
-  poolQuery,
-  getConnection,
-  executeQuery,
+};
+// トランザクションを開始
+const beginTran = async () => {
+  const tran = new MySQLTransaction();
+  await tran.begin();
+  return tran;
 };
 
+module.exports = {
+  executeQuery,
+  beginTran,
+};
 
-/**
- * 実行側
- */
-/**  */
+/** 使用側 */
+
+/** 更新処理の場合 */
 // app.get("/", async (req, res, next) => {
-//   const { beginTran } = require("../app/module/mysqlTransaction");
+//   const { beginTran } = require("/app/module/mysqlTransaction");
 //   const tran = await beginTran();
 //   try {
 //     await tran.query(
 //       `UPDATE user_tbl
 //       SET card_number=?, card_key=?, user_state=?
 //       WHERE user_id=?`,
-//       [3540000000000001, 553, 1, 1]
+//       [3540000000000001, 555, 1, 1]
 //     );
 //     // throw new Error("エラーテスト");
 //     await tran.commit();
@@ -48,15 +44,15 @@ module.exports = {
 //   }
 // });
 
+/** 参照処理の場合 */
 // app.get("/", async (req, res, next) => {
-//   const { executeQuery } = require("./module/mysqlPool");
+// app/module/mysqlTransactionを読み込む
+//   const { executeQuery } = require("app/module/mysqlTransaction");
 //   try {
-/** 実行動画 */
 //     const data = await executeQuery('SELECT * FROM `user_tbl` WHERE `user_id` = ? AND `card_key` = ?', ['1', 556])
 //     console.log(data);
 //   res.end("OK");
 //   } catch (err) {
 //     next(err);
 //   }
-//   //pool.queryを使っているので、開放は不要
 // });

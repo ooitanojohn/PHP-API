@@ -1,12 +1,10 @@
-#!/usr/bin/env node
-
 "use strict";
 
 const app = require("./app");
 var debug = require("debug")("http");
 const http_socket = require("http").Server(app);
 const io_socket = require("socket.io")(http_socket);
-debug('booting App');
+debug("booting App");
 
 /** ソケット */
 io_socket.on("connection", (socket) => {
@@ -28,9 +26,12 @@ io_socket.on("connection", (socket) => {
   });
   /** 入札が来たらMySQLへの登録処理と入札記録を返す */
   socket.on("toServerBiddingSend", (biddingData) => {
-    io_socket.to(biddingData.productId).emit("toRenderBiddingSend", biddingData);
+    io_socket
+      .to(biddingData.productId)
+      .emit("toRenderBiddingSend", biddingData);
   });
 });
 
-
-http_socket.listen(9000, () => { debug("listening..."); });
+http_socket.listen(9000, () => {
+  debug("listening...");
+});

@@ -1,23 +1,23 @@
 // mysql connect
 require("dotenv").config();
 
-const mysqlConf = ({
+const mysqlConf = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-});
-const mysqlPoolConf = ({
+  database: process.env.DB_NAME,
+};
+const mysqlPoolConf = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
+  database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10, // デフォルトは10
-  queueLimit: 0
-});
+  connectionLimit: 20, // デフォルトは10
+  queueLimit: 0,
+};
 
 exports.mysqlConf = mysqlConf;
 exports.mysqlPoolConf = mysqlPoolConf;
