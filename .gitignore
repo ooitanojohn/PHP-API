@@ -1,7 +1,7 @@
 node_modules/
 .husky/
 src/
-temp/
+# temp/
 .env
 package-lock.json
 *.swp

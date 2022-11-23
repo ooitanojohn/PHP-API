@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const app = require('../app');
+const debug = require('debug')('temp:server');
+const httpSocket = require('http').Server(app);
+const ioSocket = require("socket.io")(httpSocket);
+const { normalizePort, onError } = require("../config/config"); // server起動時の設定
+
+debug("booting App");
+
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+
+/** ソケット */
+ioSocket.on("connection", (socket) => {
+  /**
+   * 接続と非接続
+   */
+  // console.log("connect");
+  socket.on("disconnect", () => {
+    // console.log("user disconnected");
+  });
+
+  /**
+   *  biddingPageで使うソケット
+   */
+  /** biddingRoom 接続 */
+  socket.on("toServerJoin", (join) => {
+    // console.log("product商品" + join.productId + "に参加しました");
+    socket.join(join.productId);
+  });
+  /** 入札が来たらMySQLへの登録処理と入札記録を返す */
+  socket.on("toServerBiddingSend", (biddingData) => {
+    ioSocket.to(biddingData.productId)
+      .emit("toRenderBiddingSend", biddingData);
+  });
+});
+
+httpSocket.listen(port);
+httpSocket.on('error', onError);
