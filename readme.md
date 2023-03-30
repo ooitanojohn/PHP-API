@@ -2,6 +2,10 @@
 
 ## [これ読めば載ってる](https://uhyohyo.net/javascript/3_5.html)
 
+# イベント伝搬　親要素への　再帰無効
+https://developer.mozilla.org/ja/docs/Web/API/Event/stopImmediatePropagation
+https://gist.github.com/ooitanojohn/ebb97ed26206c4b6e851d8934b80b481#file-recursivestopevent
+
 ## トークン 正規表現のパターンチェック
 ```js
   // トークンチェック
